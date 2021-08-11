@@ -2,6 +2,8 @@ package com.example.simplecalculator.di.components
 
 import android.content.Context
 import com.example.simplecalculator.di.modules.NavigationModule
+import com.example.simplecalculator.presentation.activities.MainViewModel
+import com.example.simplecalculator.presentation.screens.SimpleCalculatorViewModel
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -14,6 +16,9 @@ import javax.inject.Singleton
     ]
 )
 interface ApplicationComponent {
+
+    fun simpleCalculatorViewModel() : SimpleCalculatorViewModel
+    fun mainViewModel() : MainViewModel
 
     @Component.Builder
     interface Builder {
