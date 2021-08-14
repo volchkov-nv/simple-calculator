@@ -33,11 +33,10 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.3" />
 
-    <View
+    <com.example.simplecalculator.presentation.widgets.CalculatorScreenView
         android:id="@+id/screen"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/fuscous_gray"
         app:layout_constraintBottom_toTopOf="@id/screen_line"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

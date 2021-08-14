@@ -2,11 +2,12 @@ package com.example.simplecalculator.presentation.widgets
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.example.simplecalculator.R
+import com.example.simplecalculator.databinding.CalculatorButtonBinding
 
 class CalculatorButton @JvmOverloads constructor(
     context: Context,
@@ -14,11 +15,11 @@ class CalculatorButton @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-    private var button: TextView? = null
+    private var binding: CalculatorButtonBinding
 
     init {
         View.inflate(context, R.layout.calculator_button, this)
-        button = findViewById(R.id.button_symbol)
+        binding = CalculatorButtonBinding.inflate(LayoutInflater.from(context))
 
         obtainAttrs(attrs, R.styleable.CalculatorButton) {
 
@@ -28,9 +29,9 @@ class CalculatorButton @JvmOverloads constructor(
             val buttonTextColor = it.getColor(R.styleable.CalculatorButton_buttonTextColor,
                 ContextCompat.getColor(context, R.color.gravel))
 
-            button?.text = buttonSymbol
-            button?.setBackgroundColor(backgroundColor)
-            button?.setTextColor(buttonTextColor)
+            binding.buttonSymbol.text = buttonSymbol
+            binding.buttonSymbol.setBackgroundColor(backgroundColor)
+            binding.buttonSymbol.setTextColor(buttonTextColor)
         }
     }
 }
