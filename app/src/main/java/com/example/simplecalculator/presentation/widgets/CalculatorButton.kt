@@ -2,6 +2,7 @@ package com.example.simplecalculator.presentation.widgets
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
@@ -19,7 +20,7 @@ class CalculatorButton @JvmOverloads constructor(
 
     init {
         View.inflate(context, R.layout.calculator_button, this)
-        binding = CalculatorButtonBinding.inflate(LayoutInflater.from(context))
+        binding = CalculatorButtonBinding.inflate(LayoutInflater.from(context),this, true)
 
         obtainAttrs(attrs, R.styleable.CalculatorButton) {
 
@@ -34,4 +35,5 @@ class CalculatorButton @JvmOverloads constructor(
             binding.buttonSymbol.setTextColor(buttonTextColor)
         }
     }
+
 }

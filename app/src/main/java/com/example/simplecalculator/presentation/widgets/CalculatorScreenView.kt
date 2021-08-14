@@ -25,7 +25,7 @@ class CalculatorScreenView @JvmOverloads constructor(
 
     init {
         View.inflate(context, R.layout.calculator_screen, this)
-        binding = CalculatorScreenBinding.inflate(LayoutInflater.from(context))
+        binding = CalculatorScreenBinding.inflate(LayoutInflater.from(context), this, true)
 
     }
 
