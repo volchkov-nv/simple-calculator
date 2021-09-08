@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Calculator</string>
+    <string name="arithmetic_error">Error - division by 0</string>
 </resources>

@@ -17,4 +17,8 @@ class SimpleCalculatorImpl : SimpleCalculator {
     override fun divide(number1: Double, number2: Double): Double {
         return number1 / number2
     }
+
+    override fun remainder(number1: Double, number2: Double): Double {
+        return number1 % number2
+    }
 }
