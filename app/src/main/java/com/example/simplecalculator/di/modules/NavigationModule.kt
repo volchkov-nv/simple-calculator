@@ -7,7 +7,7 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-abstract class NavigationModule {
+class NavigationModule {
 
     companion object {
         @Provides
