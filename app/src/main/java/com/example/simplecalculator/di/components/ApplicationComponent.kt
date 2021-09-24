@@ -4,6 +4,7 @@ import android.content.Context
 import com.example.simplecalculator.di.modules.NavigationModule
 import com.example.simplecalculator.di.modules.SimpleCalculatorModule
 import com.example.simplecalculator.di.modules.StorageModule
+import com.example.simplecalculator.di.modules.UserModule
 import com.example.simplecalculator.presentation.activities.MainViewModel
 import com.example.simplecalculator.presentation.screens.SimpleCalculatorViewModel
 import dagger.BindsInstance
@@ -14,6 +15,7 @@ import javax.inject.Singleton
 @Singleton
 @Component(
     modules = [
+        UserModule::class,
         NavigationModule::class,
         SimpleCalculatorModule::class,
         StorageModule::class
