@@ -4,9 +4,9 @@ import com.example.simplecalculator.domain.models.HistoryModel
 
 interface SimpleCalculatorRepository {
 
-    fun getAllHistoryData() : List<HistoryModel>
+    fun getAllHistoryData(onSuccess: (List<HistoryModel>) -> Unit)
 
-    fun setNewHistoryData(model: HistoryModel) : Long
+    fun setNewHistoryData(model: HistoryModel, onSuccess: (Long) -> Unit, onError: () -> Unit)
 
     fun clearAllHistory()
 

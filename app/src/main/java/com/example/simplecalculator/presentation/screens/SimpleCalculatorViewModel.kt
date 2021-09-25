@@ -5,6 +5,7 @@ import com.example.simplecalculator.app.navigation.Navigator
 import com.example.simplecalculator.calculator.ErrorState
 import com.example.simplecalculator.calculator.OperatorState
 import com.example.simplecalculator.calculator.SimpleCalculator
+import com.example.simplecalculator.domain.repos.SimpleCalculatorRepository
 import com.example.simplecalculator.presentation.base.BaseViewModel
 import com.example.simplecalculator.presentation.base.onNext
 import java.lang.Exception
@@ -13,7 +14,8 @@ import javax.inject.Inject
 
 class SimpleCalculatorViewModel @Inject constructor(
     private val calculator: SimpleCalculator,
-    private val navigator: Navigator
+    private val navigator: Navigator,
+    private val repository: SimpleCalculatorRepository
 ): BaseViewModel(){
 
     val screenValueUpdate = MutableLiveData<Pair<String, String>>()

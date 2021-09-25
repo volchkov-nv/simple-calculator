@@ -11,8 +11,9 @@ import javax.inject.Singleton
 class StorageModule {
 
     companion object {
-        @Singleton
+
         @Provides
+        @Singleton
         fun provideDatabase(context: Context) : CalculatorDataBase {
             return Room.databaseBuilder(
                 context,
