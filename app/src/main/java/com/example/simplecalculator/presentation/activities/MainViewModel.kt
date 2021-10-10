@@ -17,4 +17,16 @@ class MainViewModel @Inject constructor(
         navigator.initFragmentManager(supportFragmentManager)
     }
 
+    fun goToSettings() {
+        navigator.goToSettings()
+    }
+
+    fun goToHistory() {
+        navigator.goToHistory()
+    }
+
+    fun goToCalculator() {
+        navigator.goToMainScreen()
+    }
+
 }

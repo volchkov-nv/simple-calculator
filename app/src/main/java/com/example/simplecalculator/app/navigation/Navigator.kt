@@ -11,4 +11,6 @@ interface Navigator {
     fun goToMainScreen()
 
     fun goToSettings()
+
+    fun goToHistory()
 }

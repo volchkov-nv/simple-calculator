@@ -26,6 +26,10 @@ class NavigatorImpl : Navigator {
 
     }
 
+    override fun goToHistory() {
+
+    }
+
     private fun goToFragment(fragment: Fragment) {
         supportFragmentManager.commit {
             replace(R.id.fragmentFrame, fragment)
