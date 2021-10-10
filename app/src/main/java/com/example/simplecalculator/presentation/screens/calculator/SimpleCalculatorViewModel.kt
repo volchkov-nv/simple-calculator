@@ -1,4 +1,4 @@
-package com.example.simplecalculator.presentation.screens
+package com.example.simplecalculator.presentation.screens.calculator
 
 import androidx.lifecycle.MutableLiveData
 import com.example.simplecalculator.app.navigation.Navigator

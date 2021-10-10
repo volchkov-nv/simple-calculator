@@ -1,4 +1,4 @@
-package com.example.simplecalculator.presentation.screens
+package com.example.simplecalculator.presentation.screens.calculator
 
 import android.os.Bundle
 import android.view.View

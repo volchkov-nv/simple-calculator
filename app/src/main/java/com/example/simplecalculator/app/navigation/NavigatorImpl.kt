@@ -4,7 +4,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import com.example.simplecalculator.R
-import com.example.simplecalculator.presentation.screens.SimpleCalculatorFragment
+import com.example.simplecalculator.presentation.screens.calculator.SimpleCalculatorFragment
+import com.example.simplecalculator.presentation.screens.history.HistoryFragment
+import com.example.simplecalculator.presentation.screens.settings.SettingsFragment
 
 class NavigatorImpl : Navigator {
 
@@ -23,11 +25,11 @@ class NavigatorImpl : Navigator {
     }
 
     override fun goToSettings() {
-
+        replaceFragment(SettingsFragment())
     }
 
     override fun goToHistory() {
-
+        replaceFragment(HistoryFragment())
     }
 
     private fun goToFragment(fragment: Fragment) {

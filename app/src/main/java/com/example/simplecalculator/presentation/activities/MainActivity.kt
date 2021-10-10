@@ -31,13 +31,13 @@ class MainActivity : BaseActivity<MainViewModel>() {
 
     private fun setMainMenuClickAction() {
         mainNavigationPanel?.setHistoryListener {
-            //viewModel.goToHistory()
+            viewModel.goToHistory()
         }
         mainNavigationPanel?.setCalcListener {
-            //viewModel.goToCalculator()
+            viewModel.goToCalculator()
         }
         mainNavigationPanel?.setSettingsListener {
-            //viewModel.goToSettings()
+            viewModel.goToSettings()
         }
     }
 }
