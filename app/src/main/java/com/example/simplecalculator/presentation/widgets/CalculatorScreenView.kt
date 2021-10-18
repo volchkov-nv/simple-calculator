@@ -16,24 +16,12 @@ class CalculatorScreenView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-    private var mainValue = ""
-    private var resultValue = ""
-
-    private lateinit var binding : CalculatorScreenBinding
-
-    companion object {
-        private val MAX_SIZE = 17
-    }
+    private var binding : CalculatorScreenBinding
 
     init {
         View.inflate(context, R.layout.calculator_screen, this)
         binding = CalculatorScreenBinding.inflate(LayoutInflater.from(context), this, true)
 
-    }
-
-    fun updateValues(textMain: String, textResult: String) {
-        binding.mainInput.text = textMain
-        binding.resultInput.text = textResult
     }
 
     fun updateScreen(operationModel: OperationModel) {
@@ -49,12 +37,4 @@ class CalculatorScreenView @JvmOverloads constructor(
         }
     }
 
-    fun cleanView() {
-        binding.mainInput.text = ""
-        binding.resultInput.text = ""
-    }
-
-    fun getViewSize() : Int {
-        return MAX_SIZE
-    }
 }

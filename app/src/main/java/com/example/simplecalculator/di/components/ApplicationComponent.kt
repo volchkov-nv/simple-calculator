@@ -1,10 +1,8 @@
 package com.example.simplecalculator.di.components
 
 import android.content.Context
-import com.example.simplecalculator.di.modules.NavigationModule
-import com.example.simplecalculator.di.modules.SimpleCalculatorModule
-import com.example.simplecalculator.di.modules.StorageModule
-import com.example.simplecalculator.di.modules.UserModule
+import com.example.simplecalculator.calculator.facade.ChainFacadeImpl
+import com.example.simplecalculator.di.modules.*
 import com.example.simplecalculator.presentation.activities.MainViewModel
 import com.example.simplecalculator.presentation.screens.calculator.SimpleCalculatorViewModel
 import com.example.simplecalculator.presentation.screens.history.HistoryViewModel
@@ -20,7 +18,8 @@ import javax.inject.Singleton
         UserModule::class,
         NavigationModule::class,
         SimpleCalculatorModule::class,
-        StorageModule::class
+        StorageModule::class,
+        FacadeModule::class
     ]
 )
 interface ApplicationComponent {

@@ -22,12 +22,6 @@ class SimpleCalculatorFragment : BaseFragment<SimpleCalculatorViewModel>(R.layou
 
 
     override fun initViewModel() {
-        viewModel.screenValueUpdate.subscribe {
-            binding.screen.updateValues(it.first, it.second)
-        }
-        viewModel.screenSizeUpdate.subscribe {
-            viewModel.updateMaxSize(binding.screen.getViewSize())
-        }
         viewModel.operatorLock.subscribe {  state ->
             operatorList.forEach {
                 it.isEnabled = state
