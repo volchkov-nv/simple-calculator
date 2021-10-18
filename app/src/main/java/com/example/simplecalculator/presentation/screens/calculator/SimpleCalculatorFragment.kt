@@ -33,6 +33,9 @@ class SimpleCalculatorFragment : BaseFragment<SimpleCalculatorViewModel>(R.layou
                 it.isEnabled = state
             }
         }
+        viewModel.screenStateUpdate.subscribe {
+            binding.screen.updateScreen(it)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -64,6 +67,7 @@ class SimpleCalculatorFragment : BaseFragment<SimpleCalculatorViewModel>(R.layou
         binding.backspaceButton.setOnClickListener {
             viewModel.backSpace()
         }
+        viewModel.updateScreenState()
     }
 
     private fun getNumberList() : List<CalculatorButton> {
@@ -90,10 +94,6 @@ class SimpleCalculatorFragment : BaseFragment<SimpleCalculatorViewModel>(R.layou
             binding.minusButton,
             binding.plusButton,
         )
-    }
-
-    override fun onStart() {
-        super.onStart()
     }
 
 

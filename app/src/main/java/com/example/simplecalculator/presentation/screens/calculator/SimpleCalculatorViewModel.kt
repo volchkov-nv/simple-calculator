@@ -5,6 +5,8 @@ import com.example.simplecalculator.app.navigation.Navigator
 import com.example.simplecalculator.calculator.ErrorState
 import com.example.simplecalculator.calculator.OperatorState
 import com.example.simplecalculator.calculator.SimpleCalculator
+import com.example.simplecalculator.calculator.chain.*
+import com.example.simplecalculator.domain.models.OperationModel
 import com.example.simplecalculator.domain.repos.SimpleCalculatorRepository
 import com.example.simplecalculator.presentation.base.BaseViewModel
 import com.example.simplecalculator.presentation.base.onNext
@@ -21,6 +23,7 @@ class SimpleCalculatorViewModel @Inject constructor(
     val screenValueUpdate = MutableLiveData<Pair<String, String>>()
     val screenSizeUpdate = MutableLiveData<Boolean>()
     val operatorLock = MutableLiveData<Boolean>()
+    val screenStateUpdate = MutableLiveData<OperationModel>()
 
     private val firstValue : StringBuilder = StringBuilder()
     private val secondValue : StringBuilder = StringBuilder()
@@ -28,13 +31,49 @@ class SimpleCalculatorViewModel @Inject constructor(
     private var errorState = ErrorState.NONE
     private var maxSize = 17
 
+    private val firstValueHandler : FirstValueHandler
+    private val secondValueHandler : SecondValueHandler
+    private  val operatorHandler : OperatorHandler
+    private val resultHandler : ResultHandler
+
+
+    init {
+        firstValueHandler = FirstValueHandler(repository, ::receiver)
+        secondValueHandler = SecondValueHandler(repository, ::receiver)
+        operatorHandler = OperatorHandler(repository, ::receiver)
+        resultHandler = ResultHandler(repository, calculator, ::receiver)
+
+        firstValueHandler.addNextHandler(operatorHandler)
+        operatorHandler.addNextHandler(secondValueHandler)
+        secondValueHandler.addNextHandler(resultHandler)
+        resultHandler.addNextHandler(firstValueHandler)
+    }
+
+    fun updateScreenState() {
+        screenStateUpdate.onNext(repository.getCurrentState())
+    }
+
+    private fun chainAction(char: Char, type: ValueType) {
+        firstValueHandler.addValue(char, type)
+    }
+
+    private fun chainAction(type: ValueType) {
+        firstValueHandler.addValue(type)
+    }
+
+    private fun receiver(model: OperationModel) {
+        repository.updateCurrentState(model)
+        screenStateUpdate.onNext(model)
+    }
+
     fun updateMaxSize(size: Int) {
         maxSize = size
     }
 
     fun clear() {
-        setInitialData()
-        screenValueUpdate.onNext(Pair("", ""))
+        chainAction(ValueType.CLEAN)
+        /*setInitialData()
+        screenValueUpdate.onNext(Pair("", ""))*/
     }
 
     private fun setInitialData() {
@@ -46,7 +85,8 @@ class SimpleCalculatorViewModel @Inject constructor(
     }
 
     fun result() {
-        if (firstValue.isNotEmpty() && secondValue.isNotEmpty() && operator != OperatorState.NONE) {
+        chainAction(ValueType.RESULT)
+        /*if (firstValue.isNotEmpty() && secondValue.isNotEmpty() && operator != OperatorState.NONE) {
             if (secondValue.length == 1 && secondValue[0] == '-') return
             val result = calculateExpression()
             if (errorState == ErrorState.NONE) {
@@ -57,11 +97,12 @@ class SimpleCalculatorViewModel @Inject constructor(
                 printValue(getOutputPair(errorState.toString()))
                 setInitialData()
             }
-        }
+        }*/
     }
 
     fun backSpace() {
-        if (secondValue.isNotEmpty()) {
+        chainAction(ValueType.BACKSPACE)
+/*        if (secondValue.isNotEmpty()) {
             secondValue.deleteCharAt(secondValue.length - 1)
             if (secondValue.isNotEmpty()) {
                 if (secondValue.length == 1 && secondValue[0] == '-') {
@@ -82,15 +123,16 @@ class SimpleCalculatorViewModel @Inject constructor(
             } else {
                 clear()
             }
-        }
+        }*/
     }
 
     fun numberAction(number : Char) {
-        if (operator == OperatorState.NONE) {
+        chainAction(number, ValueType.VALUE)
+        /*if (operator == OperatorState.NONE) {
             addFirstNumber(number)
         } else {
             addSecondNumber(number)
-        }
+        }*/
     }
 
     private fun addFirstNumber(number : Char) {
@@ -156,7 +198,8 @@ class SimpleCalculatorViewModel @Inject constructor(
     }
 
     fun operatorAction(symbol : Char) {
-        if ((firstValue.isEmpty() && symbol == '-') || (secondValue.isEmpty() && operator != OperatorState.NONE && symbol == '-')) {
+        chainAction(symbol, ValueType.OPERATOR)
+        /*if ((firstValue.isEmpty() && symbol == '-') || (secondValue.isEmpty() && operator != OperatorState.NONE && symbol == '-')) {
             if (operator == OperatorState.MINUS) return
             numberAction(symbol)
             return
@@ -166,7 +209,7 @@ class SimpleCalculatorViewModel @Inject constructor(
             addOperator(symbol)
         } else {
             updateOperator(symbol)
-        }
+        }*/
     }
 
     private fun addOperator(symbol : Char) {

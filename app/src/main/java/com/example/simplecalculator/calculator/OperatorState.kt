@@ -12,6 +12,10 @@ enum class OperatorState(private val symbol: Char) {
         return symbol.toString()
     }
 
+    fun toChar() : Char {
+        return symbol
+    }
+
     companion object {
 
         fun getStateByChar(c: Char) : OperatorState {

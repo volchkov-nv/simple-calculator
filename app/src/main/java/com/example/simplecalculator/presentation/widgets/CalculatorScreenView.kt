@@ -7,6 +7,8 @@ import android.view.View
 import android.widget.FrameLayout
 import com.example.simplecalculator.R
 import com.example.simplecalculator.databinding.CalculatorScreenBinding
+import com.example.simplecalculator.domain.models.OperationModel
+import java.lang.StringBuilder
 
 class CalculatorScreenView @JvmOverloads constructor(
     context: Context,
@@ -32,6 +34,19 @@ class CalculatorScreenView @JvmOverloads constructor(
     fun updateValues(textMain: String, textResult: String) {
         binding.mainInput.text = textMain
         binding.resultInput.text = textResult
+    }
+
+    fun updateScreen(operationModel: OperationModel) {
+        val builder = StringBuilder()
+        builder.append(operationModel.firstValue).append(" ")
+            .append(operationModel.operator).append(" ")
+            .append(operationModel.secondValue).append(" ")
+        binding.mainInput.text = builder.toString()
+        if (operationModel.error.isNotEmpty()) {
+            binding.resultInput.text = operationModel.error
+        } else {
+            binding.resultInput.text = operationModel.result
+        }
     }
 
     fun cleanView() {

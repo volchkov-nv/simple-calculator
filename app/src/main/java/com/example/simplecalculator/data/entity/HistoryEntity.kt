@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity
 data class HistoryEntity (
     @PrimaryKey(autoGenerate = true)
-    val id : Long,
+    val id : Long?,
     @ColumnInfo(name = "first_value")
     val firstValue: Double,
     @ColumnInfo(name = "second_value")

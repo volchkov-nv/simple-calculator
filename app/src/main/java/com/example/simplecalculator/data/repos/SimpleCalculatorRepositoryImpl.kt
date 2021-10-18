@@ -2,9 +2,11 @@ package com.example.simplecalculator.data.repos
 
 
 import android.content.Context
+import com.example.simplecalculator.calculator.OperatorState
 import com.example.simplecalculator.data.converters.CalculatorConverter
 import com.example.simplecalculator.data.database.CalculatorDataBase
 import com.example.simplecalculator.domain.models.HistoryModel
+import com.example.simplecalculator.domain.models.OperationModel
 import com.example.simplecalculator.domain.repos.SimpleCalculatorRepository
 import kotlinx.coroutines.*
 import javax.inject.Inject
@@ -15,6 +17,17 @@ class SimpleCalculatorRepositoryImpl @Inject constructor(
 ) : SimpleCalculatorRepository {
 
     private val dao = database.getSimpleCalculatorDao()
+    private var state = OperationModel.getNew()
+
+    init {
+
+    }
+
+    override fun getCurrentState()  = state
+
+    override fun updateCurrentState(newState : OperationModel) {
+        state = newState
+    }
 
     override fun getAllHistoryData(
         onSuccess: (List<HistoryModel>) -> Unit,
