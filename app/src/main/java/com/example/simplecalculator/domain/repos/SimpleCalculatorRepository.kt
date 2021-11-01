@@ -11,9 +11,9 @@ interface SimpleCalculatorRepository {
 
     fun updateCurrentState(state : OperationModel)
 
-    fun getAllHistoryData(onSuccess: (List<HistoryModel>) -> Unit, scope: CoroutineScope)
+    fun getAllHistoryData(onSuccess: (List<OperationModel>) -> Unit, scope: CoroutineScope)
 
-    fun setNewHistoryData(model: HistoryModel, onSuccess: (Long) -> Unit, onError: () -> Unit, scope: CoroutineScope)
+    fun setNewHistoryData(model: OperationModel, onSuccess: (Long) -> Unit, onError: () -> Unit, scope: CoroutineScope)
 
     fun clearAllHistory(scope: CoroutineScope)
 

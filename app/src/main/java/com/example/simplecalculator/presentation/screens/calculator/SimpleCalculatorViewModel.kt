@@ -1,7 +1,7 @@
 package com.example.simplecalculator.presentation.screens.calculator
 
 import androidx.lifecycle.MutableLiveData
-import com.example.simplecalculator.app.navigation.Navigator
+import androidx.lifecycle.viewModelScope
 import com.example.simplecalculator.calculator.chain.*
 import com.example.simplecalculator.calculator.facade.ChainFacade
 import com.example.simplecalculator.domain.models.OperationModel
@@ -12,7 +12,6 @@ import javax.inject.Inject
 
 class SimpleCalculatorViewModel @Inject constructor(
     private val facade: ChainFacade,
-    private val navigator: Navigator,
     private val repository: SimpleCalculatorRepository
 ): BaseViewModel(){
 
@@ -37,7 +36,18 @@ class SimpleCalculatorViewModel @Inject constructor(
 
     private fun receiver(model: OperationModel) {
         repository.updateCurrentState(model)
-        screenStateUpdate.onNext(model)
+        screenStateUpdate.onNext(model.copy())
+        model.saveToDB()
+    }
+
+    private fun OperationModel.saveToDB() {
+        if (this.isReadyToSave()) {
+            repository.setNewHistoryData(
+                this,
+                onSuccess = {},
+                onError = {},
+                viewModelScope)
+        }
     }
 
     fun clear() {

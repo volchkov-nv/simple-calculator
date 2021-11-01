@@ -15,17 +15,13 @@ class ChainFacadeImpl @Inject constructor(
     private var secondValueHandler : SecondValueHandler? = null
     private var operatorHandler : OperatorHandler? = null
     private var resultHandler : ResultHandler? = null
-    private var isInitialized = false
 
     override fun initChain(action: (OperationModel) -> Unit) {
-        if (isInitialized) return
         firstValueHandler = FirstValueHandler(repository, action)
         secondValueHandler = SecondValueHandler(repository, action)
         operatorHandler = OperatorHandler(repository, action)
         resultHandler = ResultHandler(repository, calculator, action)
         createLinks()
-
-        isInitialized = true
     }
 
     private fun createLinks() {

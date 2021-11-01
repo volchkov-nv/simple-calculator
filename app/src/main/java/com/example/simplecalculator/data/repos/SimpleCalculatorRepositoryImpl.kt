@@ -2,10 +2,8 @@ package com.example.simplecalculator.data.repos
 
 
 import android.content.Context
-import com.example.simplecalculator.calculator.OperatorState
 import com.example.simplecalculator.data.converters.CalculatorConverter
 import com.example.simplecalculator.data.database.CalculatorDataBase
-import com.example.simplecalculator.domain.models.HistoryModel
 import com.example.simplecalculator.domain.models.OperationModel
 import com.example.simplecalculator.domain.repos.SimpleCalculatorRepository
 import kotlinx.coroutines.*
@@ -19,10 +17,6 @@ class SimpleCalculatorRepositoryImpl @Inject constructor(
     private val dao = database.getSimpleCalculatorDao()
     private var state = OperationModel.getNew()
 
-    init {
-
-    }
-
     override fun getCurrentState()  = state
 
     override fun updateCurrentState(newState : OperationModel) {
@@ -30,7 +24,7 @@ class SimpleCalculatorRepositoryImpl @Inject constructor(
     }
 
     override fun getAllHistoryData(
-        onSuccess: (List<HistoryModel>) -> Unit,
+        onSuccess: (List<OperationModel>) -> Unit,
         scope: CoroutineScope
     ) {
         scope.launch(Dispatchers.IO) {
@@ -44,13 +38,13 @@ class SimpleCalculatorRepositoryImpl @Inject constructor(
     }
 
     override fun  setNewHistoryData(
-        model: HistoryModel,
+        model: OperationModel,
         onSuccess: (Long) -> Unit,
         onError: () -> Unit,
         scope: CoroutineScope
     ) {
         scope.launch(Dispatchers.IO) {
-            val id = dao.insert(CalculatorConverter.convertHistoryModelToEntity(model))
+            val id = dao.insert(CalculatorConverter.convertOperationModelToEntity(model))
             withContext(Dispatchers.Main) {
                 onSuccess.invoke(id)
             }

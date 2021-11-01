@@ -1,6 +1,7 @@
 package com.example.simplecalculator.presentation.activities
 
 import android.os.Bundle
+import androidx.navigation.findNavController
 import com.example.simplecalculator.R
 import com.example.simplecalculator.di.DI
 import com.example.simplecalculator.presentation.base.BaseActivity
@@ -15,7 +16,6 @@ class MainActivity : BaseActivity<MainViewModel>() {
         setContentView(R.layout.activity_main)
         mainNavigationPanel = findViewById(R.id.mainPanel)
         setMainMenuClickAction()
-        viewModel.goToMainScreen()
     }
 
 
@@ -30,14 +30,19 @@ class MainActivity : BaseActivity<MainViewModel>() {
     }
 
     private fun setMainMenuClickAction() {
+
         mainNavigationPanel?.setHistoryListener {
-            viewModel.goToHistory()
+            findNavController(R.id.fragmentFrame).navigate(R.id.historyFragment)
         }
         mainNavigationPanel?.setCalcListener {
-            viewModel.goToCalculator()
+            findNavController(R.id.fragmentFrame).navigate(R.id.simpleCalculatorFragment)
         }
         mainNavigationPanel?.setSettingsListener {
-            viewModel.goToSettings()
+            findNavController(R.id.fragmentFrame).navigate(R.id.settingsFragment)
         }
+    }
+
+    override fun onBackPressed() {
+
     }
 }

@@ -9,24 +9,8 @@ class MainViewModel @Inject constructor(
     private val navigator: Navigator
 ) : BaseViewModel() {
 
-    fun goToMainScreen() {
-        navigator.goToMainScreen()
-    }
-
     fun afterInit(supportFragmentManager: FragmentManager) {
         navigator.initFragmentManager(supportFragmentManager)
-    }
-
-    fun goToSettings() {
-        navigator.goToSettings()
-    }
-
-    fun goToHistory() {
-        navigator.goToHistory()
-    }
-
-    fun goToCalculator() {
-        navigator.goToMainScreen()
     }
 
 }

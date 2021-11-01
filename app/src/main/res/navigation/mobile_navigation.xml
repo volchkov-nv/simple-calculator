@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/simpleCalculatorFragment">
+
+    <fragment
+        android:id="@+id/simpleCalculatorFragment"
+        android:name="com.example.simplecalculator.presentation.screens.calculator.SimpleCalculatorFragment"
+        android:label="SimpleCalculatorFragment"/>
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.example.simplecalculator.presentation.screens.history.HistoryFragment"
+        android:label="HistoryFragment" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.simplecalculator.presentation.screens.settings.SettingsFragment"
+        android:label="SettingsFragment" />
+</navigation>

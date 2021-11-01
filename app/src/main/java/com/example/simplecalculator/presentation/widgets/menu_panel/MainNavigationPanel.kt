@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.navigation.findNavController
 import com.example.simplecalculator.R
 import com.example.simplecalculator.databinding.MainNavigationPanelViewBinding
 

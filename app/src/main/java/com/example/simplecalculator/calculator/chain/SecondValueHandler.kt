@@ -32,7 +32,8 @@ class SecondValueHandler (
 
     private fun sendValue(char: Char) {
         sendToPrint(getCurrentState().copy(
-            secondValue = addNewNumber(char, operationModel.secondValue)
+            secondValue = addNewNumber(char, operationModel.secondValue),
+            result = ""
         ))
     }
 
@@ -46,16 +47,12 @@ class SecondValueHandler (
     override fun backSpace(char: Char, type: ValueType) {
         if (operationModel.secondValue.isNotEmpty()) {
             val newValue = operationModel.secondValue.dropLast(1)
+            sendToPrint(operationModel.copy(
+                secondValue = newValue,
+                result = ""
+            ))
             if (newValue.isNotEmpty() && newValue != OperatorState.MINUS.toString()) {
-                sendToPrint(operationModel.copy(
-                    secondValue = newValue
-                ))
                 doNext(char, type)
-            } else {
-                sendToPrint(operationModel.copy(
-                    secondValue = newValue,
-                    result = ""
-                ))
             }
         }
     }

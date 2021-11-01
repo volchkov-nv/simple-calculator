@@ -9,11 +9,11 @@ data class HistoryEntity (
     @PrimaryKey(autoGenerate = true)
     val id : Long?,
     @ColumnInfo(name = "first_value")
-    val firstValue: Double,
+    val firstValue: String,
     @ColumnInfo(name = "second_value")
-    val secondValue: Double,
-    val operator: Char,
-    val result: Double
+    val secondValue: String,
+    val operator: String,
+    val result: String
 )
 
     

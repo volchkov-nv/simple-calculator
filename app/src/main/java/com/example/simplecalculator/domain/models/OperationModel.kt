@@ -9,5 +9,22 @@ data class OperationModel (
 ) {
     companion object {
         fun getNew() : OperationModel = OperationModel("","","","", "")
+
+    }
+
+    override fun hashCode(): Int {
+        return super.hashCode()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        return super.equals(other)
+    }
+
+    fun isReadyToSave() : Boolean {
+        return firstValue.isNotEmpty()
+                && secondValue.isNotEmpty()
+                && operator.isNotEmpty()
+                && result.isNotEmpty()
+                && error.isEmpty()
     }
 }
