@@ -56,4 +56,10 @@ class SimpleCalculatorRepositoryImpl @Inject constructor(
             dao.deleteAll()
         }
     }
+
+    override fun clearHistoryById(id: Long, scope: CoroutineScope) {
+        scope.launch(Dispatchers.IO) {
+            dao.deleteById(id)
+        }
+    }
 }

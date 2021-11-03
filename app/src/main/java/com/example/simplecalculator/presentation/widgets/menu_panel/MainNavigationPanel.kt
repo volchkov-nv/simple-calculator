@@ -24,6 +24,11 @@ class MainNavigationPanel @JvmOverloads constructor(
         updateView()
     }
 
+    fun setSelectedTab(type : MainMenuButtonType) {
+        selectedTab = type
+        updateView()
+    }
+
     fun setCalcListener(action: () -> Unit) {
         binding.calculator.setOnClickListener{
             action.invoke()

@@ -11,23 +11,12 @@ object CalculatorConverter {
         entity: HistoryEntity
     ) : OperationModel {
         return OperationModel(
+            id = entity.id.toString(),
             firstValue = entity.firstValue,
             secondValue = entity.secondValue,
             operator = entity.operator,
             result = entity.result,
             error = ""
-        )
-    }
-
-    fun convertHistoryModelToEntity(
-        model: HistoryModel
-    ) : HistoryEntity {
-        return HistoryEntity(
-            id = model.id,
-            firstValue = model.firstValue,
-            secondValue = model.secondValue,
-            operator = model.operator,
-            result = model.result
         )
     }
 

@@ -9,7 +9,7 @@ import com.example.simplecalculator.presentation.widgets.menu_panel.MainNavigati
 
 class MainActivity : BaseActivity<MainViewModel>() {
 
-    private var mainNavigationPanel : MainNavigationPanel? = null
+    var mainNavigationPanel : MainNavigationPanel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

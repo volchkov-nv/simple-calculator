@@ -17,4 +17,7 @@ interface SimpleCalculatorDao {
     @Query("DELETE FROM HistoryEntity")
     fun deleteAll()
 
+    @Query("DELETE FROM HistoryEntity WHERE id = :dataId")
+    fun deleteById(dataId: Long)
+
 }

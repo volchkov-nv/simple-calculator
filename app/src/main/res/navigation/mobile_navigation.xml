@@ -12,7 +12,11 @@
     <fragment
         android:id="@+id/historyFragment"
         android:name="com.example.simplecalculator.presentation.screens.history.HistoryFragment"
-        android:label="HistoryFragment" />
+        android:label="HistoryFragment">
+        <action
+            android:id="@+id/action_history_click"
+            app:destination="@id/simpleCalculatorFragment" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.simplecalculator.presentation.screens.settings.SettingsFragment"

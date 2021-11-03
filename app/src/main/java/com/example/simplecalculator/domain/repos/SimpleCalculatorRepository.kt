@@ -1,6 +1,5 @@
 package com.example.simplecalculator.domain.repos
 
-import com.example.simplecalculator.domain.models.HistoryModel
 import com.example.simplecalculator.domain.models.OperationModel
 import kotlinx.coroutines.CoroutineScope
 
@@ -16,5 +15,7 @@ interface SimpleCalculatorRepository {
     fun setNewHistoryData(model: OperationModel, onSuccess: (Long) -> Unit, onError: () -> Unit, scope: CoroutineScope)
 
     fun clearAllHistory(scope: CoroutineScope)
+
+    fun clearHistoryById(id: Long, scope: CoroutineScope)
 
 }

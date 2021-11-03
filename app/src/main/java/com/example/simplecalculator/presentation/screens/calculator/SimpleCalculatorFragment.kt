@@ -7,6 +7,7 @@ import com.example.simplecalculator.databinding.SimpleCalculatorBinding
 import com.example.simplecalculator.di.DI
 import com.example.simplecalculator.presentation.base.BaseFragment
 import com.example.simplecalculator.presentation.widgets.CalculatorButton
+import com.example.simplecalculator.presentation.widgets.menu_panel.MainMenuButtonType
 
 class SimpleCalculatorFragment : BaseFragment<SimpleCalculatorViewModel>(R.layout.simple_calculator) {
 
@@ -19,7 +20,6 @@ class SimpleCalculatorFragment : BaseFragment<SimpleCalculatorViewModel>(R.layou
     private lateinit var binding : SimpleCalculatorBinding
     private lateinit var numberList: List<CalculatorButton>
     private lateinit var operatorList: List<CalculatorButton>
-
 
     override fun initViewModel() {
         viewModel.operatorLock.subscribe {  state ->
@@ -34,6 +34,7 @@ class SimpleCalculatorFragment : BaseFragment<SimpleCalculatorViewModel>(R.layou
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = SimpleCalculatorBinding.bind(view)
+        updateTab(MainMenuButtonType.CALCULATOR)
         super.onViewCreated(view, savedInstanceState)
     }
 

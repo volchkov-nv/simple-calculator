@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
+import com.example.simplecalculator.presentation.activities.MainActivity
 import com.example.simplecalculator.presentation.observers.FragmentObserver
+import com.example.simplecalculator.presentation.widgets.menu_panel.MainMenuButtonType
 
 abstract class BaseFragment<VM : BaseViewModel>(layoutResource: Int) : Fragment(layoutResource) {
 
@@ -47,6 +49,10 @@ abstract class BaseFragment<VM : BaseViewModel>(layoutResource: Int) : Fragment(
 
     protected fun <T> LiveData<T?>.subscribe(action: (T) -> Unit) {
         this.observe(viewLifecycleOwner, Observer { data -> data?.let { action.invoke(it) } })
+    }
+
+    protected fun updateTab(type: MainMenuButtonType) {
+        (activity as MainActivity).mainNavigationPanel?.setSelectedTab(type)
     }
 
 

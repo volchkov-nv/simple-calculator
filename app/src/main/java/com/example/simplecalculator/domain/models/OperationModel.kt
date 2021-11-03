@@ -1,6 +1,7 @@
 package com.example.simplecalculator.domain.models
 
 data class OperationModel (
+    val id: String,
     val firstValue: String,
     val secondValue: String,
     val operator: String,
@@ -8,7 +9,7 @@ data class OperationModel (
     val error: String
 ) {
     companion object {
-        fun getNew() : OperationModel = OperationModel("","","","", "")
+        fun getNew() : OperationModel = OperationModel("","","","", "", "")
 
     }
 
