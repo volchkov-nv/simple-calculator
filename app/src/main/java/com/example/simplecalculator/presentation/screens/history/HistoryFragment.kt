@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.simplecalculator.databinding.HistoryFragmentBinding
 import com.example.simplecalculator.domain.models.OperationModel
-import com.example.simplecalculator.presentation.activities.MainActivity
 import com.example.simplecalculator.presentation.widgets.menu_panel.MainMenuButtonType
 
 
@@ -66,9 +65,9 @@ class HistoryFragment : BaseFragment<HistoryViewModel>(R.layout.history_fragment
             AlertDialog.Builder(context)
                 .setTitle(getString(R.string.dialog_delete_all_history_title))
                 .setMessage(getString(R.string.dialog_message_all_history_title))
-                .setPositiveButton(R.string.yes, DialogInterface.OnClickListener { _, _ ->
+                .setPositiveButton(R.string.yes) { _, _ ->
                     viewModel.deleteAllHistory()
-                })
+                }
                 .setNegativeButton(R.string.no, null)
                 .setIcon(R.drawable.ic_delete_red)
                 .show()

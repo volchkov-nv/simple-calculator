@@ -1,8 +1,6 @@
 package com.example.simplecalculator.data.converters
 
-import com.example.simplecalculator.calculator.ErrorState
 import com.example.simplecalculator.data.entity.HistoryEntity
-import com.example.simplecalculator.domain.models.HistoryModel
 import com.example.simplecalculator.domain.models.OperationModel
 
 object CalculatorConverter {

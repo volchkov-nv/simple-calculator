@@ -18,8 +18,8 @@ class SimpleCalculatorFragment : BaseFragment<SimpleCalculatorViewModel>(R.layou
     }
 
     private lateinit var binding : SimpleCalculatorBinding
-    private lateinit var numberList: List<CalculatorButton>
-    private lateinit var operatorList: List<CalculatorButton>
+    private var numberList: List<CalculatorButton> = listOf()
+    private var operatorList: List<CalculatorButton> = listOf()
 
     override fun initViewModel() {
         viewModel.operatorLock.subscribe {  state ->
