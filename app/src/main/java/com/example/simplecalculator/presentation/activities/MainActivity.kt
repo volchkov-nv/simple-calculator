@@ -6,6 +6,7 @@ import com.example.simplecalculator.R
 import com.example.simplecalculator.di.DI
 import com.example.simplecalculator.presentation.base.BaseActivity
 import com.example.simplecalculator.presentation.widgets.menu_panel.MainNavigationPanel
+import timber.log.Timber
 
 class MainActivity : BaseActivity<MainViewModel>() {
 

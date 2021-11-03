@@ -6,6 +6,7 @@ import com.example.simplecalculator.calculator.SimpleCalculator
 import com.example.simplecalculator.domain.models.CalcModel
 import com.example.simplecalculator.domain.models.OperationModel
 import com.example.simplecalculator.domain.repos.SimpleCalculatorRepository
+import timber.log.Timber
 import java.lang.Exception
 
 class ResultHandler (
@@ -31,6 +32,7 @@ class ResultHandler (
             ValueType.CLEAN -> cleanAction()
             ValueType.BACKSPACE -> result()
         }
+        Timber.d("value $char added, type $type")
     }
 
     private fun cleanAction() {
@@ -61,6 +63,7 @@ class ResultHandler (
                 calcModel = operationModel.convert()
             } catch (e : Exception) {
                 e.printStackTrace()
+                Timber.e("Convert error, ${e.message}")
             }
             calcModel?.let { cModel->
                 sendToPrint(cModel.calculate().getOutput())
@@ -78,6 +81,7 @@ class ResultHandler (
                 this.copy(result = this.calculateValue())
             } catch (e: Exception) {
                 e.printStackTrace()
+                Timber.e("Calculation error, ${e.message}")
                 this
             }
         }

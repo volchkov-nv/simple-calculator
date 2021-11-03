@@ -3,6 +3,7 @@ package com.example.simplecalculator.calculator.chain
 import com.example.simplecalculator.calculator.OperatorState
 import com.example.simplecalculator.domain.models.OperationModel
 import com.example.simplecalculator.domain.repos.SimpleCalculatorRepository
+import timber.log.Timber
 
 class OperatorHandler (
     private val repository: SimpleCalculatorRepository,
@@ -29,6 +30,7 @@ class OperatorHandler (
             ValueType.RESULT -> doNext(char, type)
             ValueType.BACKSPACE -> backSpace(char, type)
         }
+        Timber.d("value $char added, type $type")
     }
 
     private fun operatorAction(char: Char, type: ValueType) {

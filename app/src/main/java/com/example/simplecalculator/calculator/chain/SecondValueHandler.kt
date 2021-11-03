@@ -4,6 +4,7 @@ import com.example.simplecalculator.calculator.OperatorState
 import com.example.simplecalculator.domain.models.OperationModel
 import com.example.simplecalculator.domain.repos.SimpleCalculatorRepository
 import com.example.simplecalculator.features.Utils
+import timber.log.Timber
 
 class SecondValueHandler (
     private val repository: SimpleCalculatorRepository,
@@ -20,6 +21,7 @@ class SecondValueHandler (
             ValueType.RESULT -> doNext(char, type)
             ValueType.BACKSPACE -> backSpace(char, type)
         }
+        Timber.d("value $char added, type $type")
     }
 
     private fun operatorAction(char: Char, type: ValueType) {

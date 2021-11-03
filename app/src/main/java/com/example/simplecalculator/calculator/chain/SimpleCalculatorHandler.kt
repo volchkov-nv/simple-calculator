@@ -1,9 +1,9 @@
 package com.example.simplecalculator.calculator.chain
 
-import com.example.simplecalculator.calculator.OperatorState
 import com.example.simplecalculator.domain.models.OperationModel
 import com.example.simplecalculator.domain.repos.SimpleCalculatorRepository
 import com.example.simplecalculator.features.Utils
+import timber.log.Timber
 import java.lang.StringBuilder
 
 abstract class SimpleCalculatorHandler(
@@ -55,6 +55,8 @@ abstract class SimpleCalculatorHandler(
     }
 
     protected fun sendToPrint(state: OperationModel) {
+        Timber.d("send to print: v1 = ${state.firstValue}, operator = ${state.operator}, " +
+                "v2 = ${state.secondValue}, r = ${operationModel.result}")
         outputAction.invoke(state)
     }
 
