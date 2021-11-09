@@ -8,6 +8,9 @@ import com.example.simplecalculator.presentation.base.BaseActivity
 import com.example.simplecalculator.presentation.widgets.menu_panel.MainNavigationPanel
 import timber.log.Timber
 
+/**
+ * © 2021, Nikolai Volchkov
+ */
 class MainActivity : BaseActivity<MainViewModel>() {
 
     var mainNavigationPanel : MainNavigationPanel? = null

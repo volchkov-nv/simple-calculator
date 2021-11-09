@@ -7,6 +7,35 @@ import com.example.simplecalculator.features.Utils
 import timber.log.Timber
 import java.lang.StringBuilder
 
+/**
+ * This class implement main logic to control calculation process
+ * and send current state to print on screen.
+ * The class based on Chain of Responsibility design pattern.
+ * [SimpleCalculatorHandler] is an abstraction for group of handlers which linked to each other.
+ * Chain design looks like:
+ * [FirstValueHandler] -> [OperatorHandler] -> [SecondValueHandler] -> [ResultHandler]
+ * Where "->" means input function [addValue] or [doMemory]
+ * Each handler is responsible for his element on the screen.
+ *
+ * Current state of each handlers stored in [operationModel]. It should be updated each time
+ * the handler is used via [updateState]
+ *
+ * @constructor:
+ * [repository] - repository for all data which is necessary for handlers
+ * [outputAction] - function of sending the current state to print
+ * [memoryAction] - function of updating memory icon on the screen
+ *
+ * @methods:
+ * [addValue] - main input function. This function called from previous handler or from outside
+ * in [FirstValueHandler] It checks type of operation [ValueType] and do some action depends on it.
+ * If current calculation process isn't over - call [addValue] of next handler.
+ *
+ * [doMemory] - memory input function. It checks type [MemoryType] and do some action depending on this
+ *
+ * [addNextHandler] - create link to the next handler
+ *
+ * [sendToPrint] - function to send state
+ */
 abstract class SimpleCalculatorHandler(
     private val repository: SimpleCalculatorRepository,
     private val outputAction: (OperationModel) -> Unit,
@@ -32,18 +61,30 @@ abstract class SimpleCalculatorHandler(
         }
     }
 
+    /**
+     * Save current handler's value in memory as is.
+     */
     protected open fun addPositiveMemory(type: MemoryType) {
         nextHandler?.doMemory(type)
     }
 
+    /**
+     * Save current handler's value in memory and change sign of value
+     */
     protected open fun addNegativeMemory(type: MemoryType) {
         nextHandler?.doMemory(type)
     }
 
+    /**
+     * Set current memory value to the handler and update screen
+     */
     protected open fun showMemory(type: MemoryType) {
         nextHandler?.doMemory(type)
     }
 
+    /**
+     * Clear stored memory
+     */
     protected open fun deleteMemory(type: MemoryType) {
         repository.clearMemory()
         memoryAction.invoke(false)
