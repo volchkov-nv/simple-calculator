@@ -4,14 +4,17 @@ package com.example.simplecalculator.data.repos
 import android.content.Context
 import com.example.simplecalculator.data.converters.CalculatorConverter
 import com.example.simplecalculator.data.database.CalculatorDataBase
+import com.example.simplecalculator.data.prefs.SharedPreferenceHolder
 import com.example.simplecalculator.domain.models.OperationModel
 import com.example.simplecalculator.domain.repos.SimpleCalculatorRepository
+import com.example.simplecalculator.features.Utils
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
 class SimpleCalculatorRepositoryImpl @Inject constructor(
     private val context: Context,
-    private val database: CalculatorDataBase
+    private val database: CalculatorDataBase,
+    private val preference: SharedPreferenceHolder
 ) : SimpleCalculatorRepository {
 
     private val dao = database.getSimpleCalculatorDao()
@@ -61,5 +64,21 @@ class SimpleCalculatorRepositoryImpl @Inject constructor(
         scope.launch(Dispatchers.IO) {
             dao.deleteById(id)
         }
+    }
+
+    override fun getMemory(): String {
+        return preference.getMemory() ?: ""
+    }
+
+    override fun setMemory(text: String) {
+        preference.saveMemory(Utils.convertMemoryValue(text))
+    }
+
+    override fun clearMemory() {
+        preference.saveMemory("")
+    }
+
+    override fun isMemoryEmpty(): Boolean {
+        return preference.isMemoryEmpty()
     }
 }

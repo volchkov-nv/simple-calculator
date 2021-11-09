@@ -1,5 +1,6 @@
 package com.example.simplecalculator.calculator.chain
 
+import com.example.simplecalculator.calculator.OperatorState
 import com.example.simplecalculator.domain.models.OperationModel
 import com.example.simplecalculator.domain.repos.SimpleCalculatorRepository
 import com.example.simplecalculator.features.Utils
@@ -8,7 +9,8 @@ import java.lang.StringBuilder
 
 abstract class SimpleCalculatorHandler(
     private val repository: SimpleCalculatorRepository,
-    private val outputAction: (OperationModel) -> Unit
+    private val outputAction: (OperationModel) -> Unit,
+    private val memoryAction: (Boolean) -> Unit
 ) {
 
     private var nextHandler: SimpleCalculatorHandler? = null
@@ -19,6 +21,54 @@ abstract class SimpleCalculatorHandler(
     }
 
     abstract fun addValue(char: Char, type: ValueType)
+
+    fun doMemory(type: MemoryType) {
+        updateState()
+        when(type) {
+            MemoryType.SHOW -> showMemory(type)
+            MemoryType.DELETE -> deleteMemory(type)
+            MemoryType.ADD_POSITIVE -> addPositiveMemory(type)
+            MemoryType.ADD_NEGATIVE -> addNegativeMemory(type)
+        }
+    }
+
+    protected open fun addPositiveMemory(type: MemoryType) {
+        nextHandler?.doMemory(type)
+    }
+
+    protected open fun addNegativeMemory(type: MemoryType) {
+        nextHandler?.doMemory(type)
+    }
+
+    protected open fun showMemory(type: MemoryType) {
+        nextHandler?.doMemory(type)
+    }
+
+    protected open fun deleteMemory(type: MemoryType) {
+        repository.clearMemory()
+        memoryAction.invoke(false)
+    }
+
+    protected fun doNextMemory(type: MemoryType) {
+        nextHandler?.doMemory(type)
+    }
+
+    protected fun saveNewMemory(text: String) {
+        repository.setMemory(text)
+        memoryAction.invoke(true)
+    }
+
+    protected fun getOutputValueWithMemory(memory: String, value: String) : String {
+        return if (value == OperatorState.MINUS.toString()) {
+            if (memory.isNotEmpty() && memory[0] == OperatorState.MINUS.toChar()) {
+                memory.drop(1)
+            } else {
+                memory
+            }
+        } else {
+            memory
+        }
+    }
 
     open fun addValue(type: ValueType) {
         if (type == ValueType.BACKSPACE) {
@@ -38,6 +88,9 @@ abstract class SimpleCalculatorHandler(
             builder.append(char)
         } else {
             builder.clear()
+            if (line.isNotEmpty() && line[0] == OperatorState.MINUS.toChar()) {
+                builder.append(OperatorState.MINUS.toChar())
+            }
             builder.append(char)
         }
         return builder.toString()

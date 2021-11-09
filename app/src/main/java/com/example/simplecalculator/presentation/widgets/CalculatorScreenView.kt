@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
+import androidx.core.view.isVisible
 import com.example.simplecalculator.R
 import com.example.simplecalculator.databinding.CalculatorScreenBinding
 import com.example.simplecalculator.domain.models.OperationModel
@@ -22,6 +23,10 @@ class CalculatorScreenView @JvmOverloads constructor(
         View.inflate(context, R.layout.calculator_screen, this)
         binding = CalculatorScreenBinding.inflate(LayoutInflater.from(context), this, true)
 
+    }
+
+    fun updateMemoryIcon(isShow: Boolean) {
+        binding.memoryIcon.isVisible = isShow
     }
 
     fun updateScreen(operationModel: OperationModel) {

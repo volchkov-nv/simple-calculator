@@ -6,6 +6,7 @@ import com.example.simplecalculator.calculator.SimpleCalculator
 import com.example.simplecalculator.domain.models.CalcModel
 import com.example.simplecalculator.domain.models.OperationModel
 import com.example.simplecalculator.domain.repos.SimpleCalculatorRepository
+import com.example.simplecalculator.features.Utils
 import timber.log.Timber
 import java.lang.Exception
 
@@ -13,7 +14,8 @@ class ResultHandler (
     private val repository: SimpleCalculatorRepository,
     private val calculator: SimpleCalculator,
     private val outputAction: (OperationModel) -> Unit,
-) : SimpleCalculatorHandler(repository, outputAction) {
+    private val memoryAction: (Boolean) -> Unit
+) : SimpleCalculatorHandler(repository, outputAction, memoryAction) {
 
     override fun addValue(char: Char, type: ValueType) {
         actionByType(type, char)
@@ -33,6 +35,22 @@ class ResultHandler (
             ValueType.BACKSPACE -> result()
         }
         Timber.d("value $char added, type $type")
+    }
+
+    override fun showMemory(type: MemoryType) {
+        result()
+    }
+
+    override fun addPositiveMemory(type: MemoryType) {
+        if (operationModel.result.isNotEmpty()) {
+            saveNewMemory(operationModel.result)
+        }
+    }
+
+    override fun addNegativeMemory(type: MemoryType) {
+        if (operationModel.result.isNotEmpty()) {
+            saveNewMemory(Utils.convertToNegative(operationModel.result))
+        }
     }
 
     private fun cleanAction() {

@@ -16,11 +16,12 @@ class ChainFacadeImpl @Inject constructor(
     private var operatorHandler : OperatorHandler? = null
     private var resultHandler : ResultHandler? = null
 
-    override fun initChain(action: (OperationModel) -> Unit) {
-        firstValueHandler = FirstValueHandler(repository, action)
-        secondValueHandler = SecondValueHandler(repository, action)
-        operatorHandler = OperatorHandler(repository, action)
-        resultHandler = ResultHandler(repository, calculator, action)
+    override fun initChain(action: (OperationModel) -> Unit,
+    actionMemory: (Boolean) -> Unit) {
+        firstValueHandler = FirstValueHandler(repository, action, actionMemory)
+        secondValueHandler = SecondValueHandler(repository, action, actionMemory)
+        operatorHandler = OperatorHandler(repository, action, actionMemory)
+        resultHandler = ResultHandler(repository, calculator, action, actionMemory)
         createLinks()
     }
 
@@ -40,5 +41,9 @@ class ChainFacadeImpl @Inject constructor(
 
     override fun newValue(valueType: ValueType) {
         firstValueHandler?.addValue(valueType)
+    }
+
+    override fun memoryAction(type: MemoryType) {
+        firstValueHandler?.doMemory(type)
     }
 }

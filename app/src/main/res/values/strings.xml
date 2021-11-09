@@ -5,6 +5,8 @@
     <string name="yes">yes</string>
     <string name="no">no</string>
 
+    <string name="memory">M</string>
+
     //history
     <string name="button_delete_all_history">Delete all history</string>
     <string name="dialog_delete_all_history_title">Delete all history?</string>

@@ -8,8 +8,9 @@ import timber.log.Timber
 
 class FirstValueHandler(
     private val repository: SimpleCalculatorRepository,
-    private val outputAction: (OperationModel) -> Unit
-) : SimpleCalculatorHandler(repository, outputAction) {
+    private val outputAction: (OperationModel) -> Unit,
+    private val memoryAction: (Boolean) -> Unit
+) : SimpleCalculatorHandler(repository, outputAction, memoryAction) {
 
 
     override fun addValue(char: Char, type: ValueType) {
@@ -22,6 +23,49 @@ class FirstValueHandler(
             ValueType.BACKSPACE -> backSpace(char, type)
         }
         Timber.d("value $char added, type $type")
+    }
+
+    override fun showMemory(type: MemoryType) {
+        if (operationModel.operator.isNotEmpty()) {
+            doNextMemory(type)
+        } else {
+            checkMemory()
+        }
+    }
+
+    override fun addPositiveMemory(type: MemoryType) {
+        if (operationModel.isNextMemory()) {
+            doNextMemory(type)
+        } else {
+            if (operationModel.firstValue.isNotEmpty()
+                && operationModel.firstValue != OperatorState.MINUS.toString()) {
+                    saveNewMemory(operationModel.firstValue)
+            }
+        }
+    }
+
+    override fun addNegativeMemory(type: MemoryType) {
+        if (operationModel.isNextMemory()) {
+            doNextMemory(type)
+        } else {
+            if (operationModel.firstValue.isNotEmpty()
+                && operationModel.firstValue != OperatorState.MINUS.toString()) {
+                    saveNewMemory(Utils.convertToNegative(operationModel.firstValue))
+            }
+        }
+    }
+
+    private fun OperationModel.isNextMemory() : Boolean {
+        return this.operator.isNotEmpty()
+                && this.secondValue.isNotEmpty()
+                && this.secondValue != OperatorState.MINUS.toString()
+    }
+
+    private fun checkMemory() {
+        val memory = repository.getMemory()
+        sendToPrint(getCurrentState().copy(
+            firstValue = getOutputValueWithMemory(memory, operationModel.firstValue)
+        ))
     }
 
     private fun checkOperator(char: Char, type: ValueType) {

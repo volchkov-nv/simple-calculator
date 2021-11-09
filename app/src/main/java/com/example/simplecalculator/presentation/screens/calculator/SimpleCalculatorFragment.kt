@@ -30,6 +30,10 @@ class SimpleCalculatorFragment : BaseFragment<SimpleCalculatorViewModel>(R.layou
         viewModel.screenStateUpdate.subscribe {
             binding.screen.updateScreen(it)
         }
+
+        viewModel.screenMemoryUpdate.subscribe {
+            binding.screen.updateMemoryIcon(it)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -62,7 +66,20 @@ class SimpleCalculatorFragment : BaseFragment<SimpleCalculatorViewModel>(R.layou
         binding.backspaceButton.setOnClickListener {
             viewModel.backSpace()
         }
+        binding.mcButton.setOnClickListener {
+            viewModel.clearMemory()
+        }
+        binding.mPlusButton.setOnClickListener {
+            viewModel.setPositiveMemory()
+        }
+        binding.mMinusButton.setOnClickListener {
+            viewModel.setNegativeMemory()
+        }
+        binding.mrButton.setOnClickListener {
+            viewModel.showMemory()
+        }
         viewModel.updateScreenState()
+        viewModel.checkMemoryAndUpdate()
     }
 
     private fun getNumberList() : List<CalculatorButton> {

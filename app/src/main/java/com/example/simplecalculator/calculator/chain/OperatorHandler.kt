@@ -7,8 +7,9 @@ import timber.log.Timber
 
 class OperatorHandler (
     private val repository: SimpleCalculatorRepository,
-    private val outputAction: (OperationModel) -> Unit
-) : SimpleCalculatorHandler(repository, outputAction) {
+    private val outputAction: (OperationModel) -> Unit,
+    private val memoryAction: (Boolean) -> Unit
+) : SimpleCalculatorHandler(repository, outputAction, memoryAction) {
 
     private var operator: OperatorState
 

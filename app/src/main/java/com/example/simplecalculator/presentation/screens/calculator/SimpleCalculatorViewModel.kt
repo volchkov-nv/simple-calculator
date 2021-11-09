@@ -17,9 +17,18 @@ class SimpleCalculatorViewModel @Inject constructor(
 
     val operatorLock = MutableLiveData<Boolean>()
     val screenStateUpdate = MutableLiveData<OperationModel>()
+    val screenMemoryUpdate = MutableLiveData<Boolean>()
 
     init {
-        facade.initChain(::receiver)
+        facade.initChain(::receiver, ::updateMemoryUi)
+    }
+
+    fun checkMemoryAndUpdate() {
+        updateMemoryUi(!repository.isMemoryEmpty())
+    }
+
+    private fun updateMemoryUi(isShow: Boolean) {
+        screenMemoryUpdate.onNext(isShow)
     }
 
     fun updateScreenState() {
@@ -68,6 +77,22 @@ class SimpleCalculatorViewModel @Inject constructor(
 
     fun operatorAction(symbol : Char) {
         chainAction(symbol, ValueType.OPERATOR)
+    }
+
+    fun setPositiveMemory() {
+        facade.memoryAction(MemoryType.ADD_POSITIVE)
+    }
+
+    fun setNegativeMemory() {
+        facade.memoryAction(MemoryType.ADD_NEGATIVE)
+    }
+
+    fun clearMemory() {
+        facade.memoryAction(MemoryType.DELETE)
+    }
+
+    fun showMemory() {
+        facade.memoryAction(MemoryType.SHOW)
     }
 }
 

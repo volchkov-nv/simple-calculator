@@ -18,4 +18,11 @@ interface SimpleCalculatorRepository {
 
     fun clearHistoryById(id: Long, scope: CoroutineScope)
 
+    fun getMemory() : String
+
+    fun setMemory(text: String)
+
+    fun clearMemory()
+
+    fun isMemoryEmpty() : Boolean
 }

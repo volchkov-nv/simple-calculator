@@ -8,8 +8,9 @@ import timber.log.Timber
 
 class SecondValueHandler (
     private val repository: SimpleCalculatorRepository,
-    private val outputAction: (OperationModel) -> Unit
-) : SimpleCalculatorHandler(repository, outputAction) {
+    private val outputAction: (OperationModel) -> Unit,
+    private val memoryAction: (Boolean) -> Unit
+) : SimpleCalculatorHandler(repository, outputAction, memoryAction) {
 
 
     override fun addValue(char: Char, type: ValueType) {
@@ -29,6 +30,21 @@ class SecondValueHandler (
             sendValue(char)
         } else {
             doNext(char, type)
+        }
+    }
+
+    override fun showMemory(type: MemoryType) {
+        if (repository.getMemory().isEmpty()) return
+        if (operationModel.secondValue.isEmpty()
+            || operationModel.secondValue == OperatorState.MINUS.toString()) {
+                sendToPrint(operationModel.copy(
+                    secondValue = getOutputValueWithMemory(repository.getMemory(), operationModel.secondValue)
+                ))
+            doNextMemory(type)
+        } else {
+            sendToPrint(OperationModel.getNew().copy(
+                firstValue = repository.getMemory()
+            ))
         }
     }
 
