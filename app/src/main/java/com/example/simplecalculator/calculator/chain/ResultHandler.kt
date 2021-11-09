@@ -42,13 +42,13 @@ class ResultHandler (
     }
 
     override fun addPositiveMemory(type: MemoryType) {
-        if (operationModel.result.isNotEmpty()) {
+        if (operationModel.result.isNotEmpty() && operationModel.error.isEmpty()) {
             saveNewMemory(operationModel.result)
         }
     }
 
     override fun addNegativeMemory(type: MemoryType) {
-        if (operationModel.result.isNotEmpty()) {
+        if (operationModel.result.isNotEmpty() && operationModel.error.isEmpty()) {
             saveNewMemory(Utils.convertToNegative(operationModel.result))
         }
     }
