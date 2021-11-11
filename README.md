@@ -6,11 +6,11 @@ A simple app to help you with complex calculations.
 
 ## Do any calculations you want
 
-<img src="dev_files/calculator.gif" width="300"/>
+<img src="dev_files/calculator.jpg" width="300"/>
 
 ## Check your previous calculation in history and revert to them if you want
 
-<img src="dev_files/history.gif" width="300"/>
+<img src="dev_files/history.jpg" width="300"/>
 
 <br>
 
