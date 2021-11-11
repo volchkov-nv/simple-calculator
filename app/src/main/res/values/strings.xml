@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">SimpleCalculator</string>
+    <string name="app_name">Calculator</string>
+    <string name="arithmetic_error">Error - division by 0</string>
+
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+
+    <string name="memory">M</string>
+
+    //history
+    <string name="button_delete_all_history">Delete all history</string>
+    <string name="dialog_delete_all_history_title">Delete all history?</string>
+    <string name="dialog_message_all_history_title">Are you sure you want to delete all history?</string>
+    <string name="history_empty">No history yet</string>
 </resources>
